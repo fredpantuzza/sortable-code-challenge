@@ -2,7 +2,6 @@
 
 from bisect import bisect_left
 from optparse import OptionParser
-from pprint import PrettyPrinter
 import json
 import re
 
@@ -168,10 +167,9 @@ class Matcher:
                     self.non_matched_manufacturer.append(listing)
     
     def produce_output(self, output_file_name):
-        printer = PrettyPrinter(indent=2)
         with open(output_file_name, 'w') as output_file:
             for product_name in self.matches:
-                output_file.write(printer.pformat({
+                output_file.write(json.dumps({
                     'product_name': product_name,
                     'listings': self.matches[product_name]
                 }) + '\n')
